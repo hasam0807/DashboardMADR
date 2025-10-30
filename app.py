@@ -756,10 +756,7 @@ if not cat_df.empty:
 else:
     st.info("Sin datos por categoría.")
 
-# ---------- Heatmap observaciones (respeta filtros) ----------
 # ========== GRÁFICA 3: HEATMAP ==========
-# Busca "# ---------- Heatmap observaciones ----------" y reemplaza con:
-
 st.subheader("🧭 Mapa de calor: Observaciones por categoría y mes")
 
 obs = df_view.assign(
@@ -800,17 +797,20 @@ if not heat.empty:
         texttemplate='<b>%{text}</b>',
         textfont={"size": 13, "color": "#1A252F", "family": "Segoe UI Semibold"},
         hovertemplate='<b>%{y}</b><br>%{x}: <b>%{z} observaciones</b><extra></extra>',
-        xgap=3,  # Espaciado entre celdas
+        xgap=3,
         ygap=3,
         colorbar=dict(
-            title="Cantidad",
-            titleside="right",
+            title=dict(
+                text="Cantidad",
+                side="right"
+            ),
             titlefont=dict(size=13, family="Segoe UI Semibold"),
             thickness=20,
             len=0.7,
             bgcolor='rgba(255, 255, 255, 0.9)',
             bordercolor='#E0E0E0',
-            borderwidth=2
+            borderwidth=2,
+            tickfont=dict(size=11, color='#546E7A')
         )
     ))
     
@@ -832,7 +832,6 @@ if not heat.empty:
     st.caption(f"💡 **Insight:** La categoría '{max_cat}' y el mes '{max_mes}' concentran más observaciones.")
 else:
     st.info("No hay observaciones para graficar con los filtros actuales.")
-
 st.divider()
 
 # ---------- Tabla semaforizada ----------
@@ -1869,3 +1868,4 @@ try:
     st.caption("💡 **Tip:** Abre el archivo HTML en tu navegador y usa 'Imprimir → Guardar como PDF' para obtener un reporte en PDF con todas las gráficas a color.")
 except Exception as e:
     st.error(f"Error al generar el reporte HTML: {e}")
+
